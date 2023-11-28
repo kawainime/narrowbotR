@@ -35,5 +35,5 @@ jobs:
           git commit -m "MANUAL POST $(date)"
           git push origin main
         env:
-          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+          REPO_KEY: ${{secrets.GH_TOK}}
           username: github-actions
