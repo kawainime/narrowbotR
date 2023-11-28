@@ -144,7 +144,7 @@ status_msg <- paste0(msg_text, collapse = "")
 
 # submit post -------------------------------------------------------------
 
-# safely_tweet <- purrr::possibly(rtweet::post_tweet, otherwise = "tweet_error")
+safely_tweet <- purrr::possibly(rtweet::post_tweet, otherwise = "tweet_error")
 safely_toot <- purrr::possibly(rtoot::post_toot, otherwise = "toot_error")
 
 # if testing do not post output
@@ -176,11 +176,11 @@ if (Sys.getenv("NARROWBOT_TEST") == "true") {
   }
 
   # # stop if post to both APIs fail
-  # if (is.null(tweet_out$error) & is.null(tweet_out$error)) {
-  #   message("Successfully tweeted and tooted")
-  # } else if (!is.null(tweet_out$error) & is.null(toot_out$error)) {
-  #   stop("Both tweet and toot unsuccessful")
-  # }
+   if (is.null(tweet_out$error) & is.null(tweet_out$error)) {
+     message("Successfully tweeted and tooted")
+  } else if (!is.null(tweet_out$error) & is.null(toot_out$error)) {
+     stop("Both tweet and toot unsuccessful")
+   }
 
 }
 
