@@ -9,12 +9,13 @@ source("R/flickr_functions.R")  # flickr api functions
 source("R/mastodon_token.R")    # custom mastodon token function
 
 # # create twitter token
-# twitter_token <- rtweet::rtweet_bot(
-#   api_key =    Sys.getenv("TWITTER_CONSUMER_API_KEY"),
-#   api_secret = Sys.getenv("TWITTER_CONSUMER_API_SECRET"),
-#   access_token =    Sys.getenv("TWITTER_ACCESS_TOKEN"),
-#   access_secret =   Sys.getenv("TWITTER_ACCESS_TOKEN_SECRET")
-# )
+ twitter_token <- rtweet::rtweet_bot(
+   api_key =    Sys.getenv("TWITTER_CONSUMER_API_KEY"),
+   api_secret = Sys.getenv("TWITTER_CONSUMER_API_SECRET"),
+   access_token =    Sys.getenv("TWITTER_ACCESS_TOKEN"),
+   access_secret =   Sys.getenv("TWITTER_ACCESS_TOKEN_SECRET")
+ )
+message("Stage: Twitter token created")
 
 # create mastodon token
 toot_token <- mastodon_token(
@@ -79,13 +80,13 @@ base_message <- c(
 )
 
 # set basic hashtags for all posts
-base_hashtags <- c("#canal", "#river", "#narrowboat", "#barge", "#gongoozler")
+base_hashtags <- c("#canal", "#river", "#indonesia", "#barge", "#gongoozler")
 
 # add location hashtags
 if (place$wales_marker) {
-  location_hashtags <- c("#wales", "#uk")
+  location_hashtags <- c("#wales", "#indonesia")
 } else {
-  location_hashtags <- c("#england", "#uk")
+  location_hashtags <- c("#england", "#indonesia")
 }
 
 photo_hashtags <- NULL
@@ -152,15 +153,15 @@ if (Sys.getenv("NARROWBOT_TEST") == "true") {
 } else {
 
   # # post to twitter
-  # tweet_out <- safely_tweet(
-  #   status = status_msg,
-  #   media = tmp_file, 
-  #   media_alt_text = alt_msg,
-  #   lat = place$lat,
-  #   long = place$long,
-  #   display_coordinates = TRUE,
-  #   token = twitter_token
-  # )
+   tweet_out <- safely_tweet(
+     status = status_msg,
+     media = tmp_file, 
+     media_alt_text = alt_msg,
+     lat = place$lat,
+     long = place$long,
+     display_coordinates = TRUE,
+     token = twitter_token
+   )
 
   # post to mastodon
   toot_out <- safely_toot(
